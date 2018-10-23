@@ -5,7 +5,7 @@ CREATE TABLE lot (
     id SERIAL PRIMARY KEY,
     name text,
     address text,
-    country varchar
+    country text
 );
 CREATE UNIQUE INDEX lot_pkey ON lot(id int4_ops);
 
