@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package backend;
+
+service lotus{
+  rpc GetLotByID (Lot) returns (Lot);
+}
+message Lot {
+  int64 ID = 1;
+  string Name = 2;
+  string Address = 3;
+}
