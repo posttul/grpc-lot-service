@@ -4,9 +4,17 @@ package backend;
 
 service lotus{
   rpc GetLotByID (Lot) returns (Lot);
+  rpc GetLots (Empty) returns (Lots);
 }
+message Empty{}
+
 message Lot {
   int64 ID = 1;
   string Name = 2;
   string Address = 3;
+  string Country = 4;
+}
+
+message Lots{
+  repeated Lot lots = 1;
 }

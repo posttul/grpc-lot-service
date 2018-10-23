@@ -4,9 +4,10 @@ CREATE DATABASE lotes ENCODING = 'UTF8';
 CREATE TABLE lot (
     id SERIAL PRIMARY KEY,
     name text,
-    address text
+    address text,
+    country varchar
 );
 CREATE UNIQUE INDEX lot_pkey ON lot(id int4_ops);
 
-INSERT INTO "public"."lot"("id","name","address") VALUES
-(1,E'Peten14',E'Peten 14  Col. Narvarte Poniente Benito Juarez CDMX');
+INSERT INTO "public"."lot"("id","name","address","country") VALUES
+(1,E'Peten14',E'Peten 14  Col. Narvarte Poniente Benito Juarez CDMX', E'mx');

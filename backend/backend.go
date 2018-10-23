@@ -20,10 +20,15 @@ type Server struct {
 	storage storage.Service
 }
 
-// GetLotByID use this to get the lot form the server storage
+// GetLotByID use this to get the lot form the server storage.
 func (s *Server) GetLotByID(context context.Context, in *pb.Lot) (*pb.Lot, error) {
 	logrus.Infof("Get lot by id %d", in.GetID())
 	return s.storage.GetLotByID(in.GetID())
+}
+
+// GetLots returns all the lots in the server storage.
+func (s *Server) GetLots(context context.Context, in *pb.Empty) (*pb.Lots, error) {
+	return s.storage.GetLots()
 }
 
 func main() {

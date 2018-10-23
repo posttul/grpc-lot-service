@@ -31,33 +31,35 @@ func New(user, password, dbName, host string) (storage.Service, error) {
 }
 
 // GetLots returns all lots
-func (p *postgres) GetLots() ([]pb.Lot, error) {
-	st, err := p.db.Query("SELECT id,name,address FROM lot;")
+func (p *postgres) GetLots() (*pb.Lots, error) {
+	st, err := p.db.Query("SELECT id,name,address,country FROM lot;")
 	if err != nil {
 		return nil, err
 	}
-	lots := []pb.Lot{}
+	lots := []*pb.Lot{}
 	for st.Next() {
-		lot := pb.Lot{}
+		lot := &pb.Lot{}
 		if err := st.Scan(
 			&lot.ID,
 			&lot.Name,
-			&lot.Address); err != nil {
+			&lot.Address,
+			&lot.Country); err != nil {
 			return nil, err
 		}
 		lots = append(lots, lot)
 	}
-	return lots, nil
+	return &pb.Lots{Lots: lots}, nil
 }
 
 // GetLots returns all lots
 func (p *postgres) GetLotByID(id int64) (*pb.Lot, error) {
 	lot := pb.Lot{}
-	err := p.db.QueryRow("SELECT id,name,address FROM lot WHERE id=$1;", id).
+	err := p.db.QueryRow("SELECT id,name,address,country FROM lot WHERE id=$1;", id).
 		Scan(
 			&lot.ID,
 			&lot.Name,
-			&lot.Address)
+			&lot.Address,
+			&lot.Country)
 	if err != nil {
 		return nil, err
 	}
